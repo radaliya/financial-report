@@ -1,0 +1,686 @@
+
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Портфолио – Радалия Ищенко</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Базовая сетка и фон */
+    :root {
+      --bg-main: #050816;
+      --bg-section: #0b1020;
+      --accent: #46b3ff;
+      --accent-2: #ff6bd5;
+      --text-main: #f5f5f8;
+      --text-muted: #9fa4c6;
+      --glass-bg: rgba(255, 255, 255, 0.06);
+      --border-glass: rgba(255, 255, 255, 0.18);
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --transition-fast: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at top, #172a46 0%, #050816 45%, #02030a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 32px 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    /* Градиентный hero‑заголовок с прозрачным текстом */
+    .hero {
+      position: relative;
+      padding: 40px 24px 32px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: radial-gradient(circle at 0% 0%, rgba(70, 179, 255, 0.38), transparent 55%),
+                  radial-gradient(circle at 100% 20%, rgba(255, 107, 213, 0.42), transparent 55%),
+                  rgba(5, 8, 22, 0.86);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 210deg,
+        rgba(70, 179, 255, 0),
+        rgba(70, 179, 255, 0.9),
+        rgba(255, 107, 213, 0.85),
+        rgba(255, 237, 188, 0.85),
+        rgba(70, 179, 255, 0.9),
+        rgba(70, 179, 255, 0)
+      );
+      opacity: 0.55;
+      filter: blur(28px);
+      mix-blend-mode: screen;
+      animation: heroGlow 16s linear infinite;
+    }
+
+    @keyframes heroGlow {
+      0% { transform: translate3d(-6%, -4%, 0) rotate(0deg); }
+      50% { transform: translate3d(6%, 6%, 0) rotate(120deg); }
+      100% { transform: translate3d(-6%, -4%, 0) rotate(360deg); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(120deg, #f5f8ff, #c8e6ff, #ffe4ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      max-width: 440px;
+      color: var(--text-muted);
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(3, 10, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #46b3ff, #020924);
+      box-shadow: 0 0 12px rgba(70, 179, 255, 0.9);
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-aside {
+      justify-self: end;
+    }
+
+    .hero-aside-card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: rgba(4, 8, 22, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
+      min-width: 260px;
+    }
+
+    .hero-aside-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-aside-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #ff7b7b;
+    }
+
+    .dot:nth-child(2) {
+      background: #ffe083;
+    }
+
+    .dot:nth-child(3) {
+      background: #7affb2;
+    }
+
+    .hero-aside-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .hero-aside-body {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-aside-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(22, 28, 52, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--accent);
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    .hero-aside-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ff6bd5, #020924);
+      box-shadow: 0 0 8px rgba(255, 107, 213, 0.8);
+    }
+
+    /* Секции */
+    .section {
+      margin-top: 32px;
+      padding: 24px 24px 22px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-section);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .section-label {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Карточки навыков */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .skills-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .skill-card {
+      position: relative;
+      padding: 16px 15px 14px;
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      cursor: default;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(70, 179, 255, 0.5), transparent 60%),
+                  radial-gradient(circle at 100% 0%, rgba(255, 107, 213, 0.45), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      mix-blend-mode: screen;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 24px 42px rgba(0, 0, 0, 0.7);
+      border-color: rgba(255, 255, 255, 0.26);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .skill-card:hover::before {
+      opacity: 0.6;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .skill-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .skill-level {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .skill-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(7, 14, 36, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 10px;
+      color: var(--accent-2);
+    }
+
+    .skill-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ff6bd5, #020924);
+    }
+
+    /* Кейсы */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .cases-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .case-card {
+      position: relative;
+      padding: 16px 16px 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(70, 179, 255, 0.18), rgba(5, 8, 22, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    .case-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .case-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .case-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .case-result {
+      font-size: 12px;
+      color: #e4f5ff;
+      margin-bottom: 6px;
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .case-tag {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(8, 16, 38, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+    }
+
+    /* Теги-инструменты */
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tool-tag {
+      position: relative;
+      font-size: 11px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at 0% 0%, rgba(70, 179, 255, 0.35), rgba(5, 8, 22, 0.98));
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      cursor: default;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .tool-tag::before {
+      content: "#";
+      position: absolute;
+      left: 8px;
+      opacity: 0.7;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .tool-tag span {
+      padding-left: 10px;
+    }
+
+    .tool-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+      background: radial-gradient(circle at 100% 0%, rgba(255, 107, 213, 0.4), rgba(5, 8, 22, 0.98));
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    /* Адаптация секций под мобильные устройства */
+    @media (max-width: 640px) {
+      body {
+        padding: 22px 12px;
+      }
+
+      .hero {
+        padding: 26px 18px 22px;
+      }
+
+      .section {
+        padding: 18px 16px 16px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-aside {
+        justify-self: stretch;
+      }
+
+      .hero-aside-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-main">
+          <div class="hero-pill">
+            <span class="pill-dot"></span>
+            <span>Портфолио веб‑дизайнера · Амстердам</span>
+          </div>
+          <h1 class="hero-title">
+            Радалия Ищенко — цифровой дизайн, который усиливает финансовые решения
+          </h1>
+          <p class="hero-subtitle">
+            Я помогаю финансовым командам превратить сложные данные в понятные цифровые продукты: дашборды, лендинги и интерфейсы, которые работают на доверие и конверсию.
+          </p>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="hero-aside-card">
+            <div class="hero-aside-header">
+              <div class="hero-aside-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+              <span class="hero-aside-title">Фокус: финтех‑продукты</span>
+            </div>
+            <div class="hero-aside-body">
+              <span>UX/UI для финансовых сервисов и аналитики.</span>
+              <span>Четкая структура, визуальная иерархия, акцентные элементы.</span>
+              <span>Интерфейсы, которые говорят на языке цифр и пользователей.</span>
+            </div>
+            <div class="hero-aside-tag">
+              <span class="hero-aside-tag-dot"></span>
+              <span>Дизайн, который увеличивает доверие</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- НАВЫКИ -->
+    <section class="section">
+      <header class="section-header">
+        <div>
+          <h2 class="section-title">Ключевые навыки</h2>
+          <p class="section-description">
+            От структуры до деталей: я проектирую интерфейсы, которые балансируют аналитику и эстетику, сохраняя приоритет бизнес‑метрик.
+          </p>
+        </div>
+        <span class="section-label">UX · UI · STRATEGY</span>
+      </header>
+
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3 class="skill-name">Дизайн визуальной иерархии</h3>
+          <div class="skill-meta">
+            <span>Читабельные интерфейсы для сложных продуктов.</span>
+            <span class="skill-level">Senior</span>
+          </div>
+          <p class="skill-body">
+            Работаю с типографикой, контрастом и сеткой так, чтобы ключевые показатели и сценарии всегда оставались в фокусе пользователя.
+          </p>
+          <div class="skill-pill">
+            <span class="skill-pill-dot"></span>
+            <span>Дизайн систем отчетности</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <h3 class="skill-name">Интерактивные карточки и компоненты</h3>
+          <div class="skill-meta">
+            <span>Микровзаимодействия и hover‑анимации.</span>
+            <span class="skill-level">Advanced</span>
+          </div>
+          <p class="skill-body">
+            Проектирую карточки навыков, продуктов и кейсов с гладкими анимациями, которые подчеркивают действия пользователя, а не отвлекают от целей.
+          </p>
+          <div class="skill-pill">
+            <span class="skill-pill-dot"></span>
+            <span>Glassmorphism · Gradient UI</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <h3 class="skill-name">Структура контента для финансовых команд</h3>
+          <div class="skill-meta">
+            <span>Перевод сложных моделей в понятный UI.</span>
+            <span class="skill-level">Expert</span>
+          </div>
+          <p class="skill-body">
+            Собираю текст, графики и таблицы в единую историю продукта: от тезисов к диаграммам, от KPI к понятным действиям для пользователя.
+          </p>
+          <div class="skill-pill">
+            <span class="skill-pill-dot"></span>
+            <span>Data‑driven UX</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- КЕЙСЫ -->
+    <section class="section">
+      <header class="section-header">
+        <div>
+          <h2 class="section-title">Примеры кейсов</h2>
+          <p class="section-description">
+            Несколько проектов, где дизайн помог финансистам быстрее принимать решения и ясно коммуницировать результаты.
+          </p>
+        </div>
+        <span class="section-label">SELECTED PROJECTS</span>
+      </header>
+
+      <div class="cases-grid">
+        <article class="case-card">
+          <div class="case-label">Финансовая аналитика · B2B</div>
+          <h3 class="case-title">Дашборд для инвестиционного фонда</h3>
+          <p class="case-meta">
+            Структурирование сложных метрик доходности, риска и сценариев для команды менеджмента и LP.
+          </p>
+          <p class="case-result">
+            Результат: сокращение времени подготовки презентации на 40% и рост вовлеченность пользователей в аналитику.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">UX‑архитектура</span>
+            <span class="case-tag">Интерактивные графики</span>
+            <span class="case-tag">Фирменная палитра</span>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <div class="case-label">Цифровой продукт · SaaS</div>
+          <h3 class="case-title">Онбординг для финансового сервиса</h3>
+          <p class="case-meta">
+            Редизайн онбординга и лендинга для платформы управления корпоративными бюджетами.
+          </p>
+          <p class="case-result">
+            Результат: понятная структура преимуществ для CFO и команд, рост конверсии в регистрацию и демо‑запросы.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">Лендинг</span>
+            <span class="case-tag">UX‑копирайтинг</span>
+            <span class="case-tag">Адаптивный дизайн</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ИНСТРУМЕНТЫ -->
+    <section class="section">
+      <header class="section-header">
+        <div>
+          <h2 class="section-title">Инструменты и стек</h2>
+          <p class="section-description">
+            Использую современный стек для дизайна, прототипирования и систематизации интерфейсов, чтобы продукты быстро переходили от идеи к релизу.
+          </p>
+        </div>
+        <span class="section-label">TOOLS · WORKFLOW</span>
+      </header>
+
+      <div class="tools-grid">
+        <div class="tool-tag"><span>Figma</span></div>
+        <div class="tool-tag"><span>Adobe XD</span></div>
+        <div class="tool-tag"><span>Illustrator</span></div>
+        <div class="tool-tag"><span>HTML · CSS</span></div>
+        <div class="tool-tag"><span>Component libraries</span></div>
+        <div class="tool-tag"><span>Design systems</span></div>
+        <div class="tool-tag"><span>Prototyping</span></div>
+        <div class="tool-tag"><span>Interaction design</span></div>
+        <div class="tool-tag"><span>Data visualization</span></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
